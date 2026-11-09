@@ -1,13 +1,12 @@
 {
   "name": "master-levels-for-uzdoom",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.0-alpha.1",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "bin": {
-    "master-levels": "./dist/cli.js"
+    "master-levels": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
