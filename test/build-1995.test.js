@@ -47,9 +47,11 @@ test('MANOR and TTRAP preserve the 1024-wide four-patch sky texture', () => {
   assert.deepEqual(Buffer.from(archive['patches/MLTTRAP.lmp']), Buffer.from('other'));
   const textures = strFromU8(archive.TEXTURES);
   assert.match(textures, /Texture MLMANOR, 1024, 128/);
-  assert.match(textures, /Patch MLMANOR, 768, 0/);
+  assert.match(textures, /Patch "patches\/MLMANOR\.lmp", 768, 0/);
   assert.match(textures, /Texture MLTTRAP, 1024, 128/);
-  assert.equal((textures.match(/Patch ML(?:MANOR|TTRAP)/g) || []).length, 8);
+  assert.equal((textures.match(/Patch "patches\/ML(?:MANOR|TTRAP)\.lmp"/g) || []).length, 8);
+  // Music WADs use the same short lump names; sky patches need unambiguous paths.
+  assert.doesNotMatch(textures, /Patch ML(?:MANOR|TTRAP),/);
   assert.match(textures, /Texture FIRWARP/);
 });
 

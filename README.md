@@ -2,7 +2,7 @@
 
 A CLI tool for finding Master Levels WADs and building adapters for UZDoom. It supports the original 1995 release, Doom Classic Complete (2012), and DOOM + DOOM II (2024).
 
-The project is in early development. The adapters are experimental; campaign transitions, endings, boss actions, some resources, and the title screen still need verification.
+The project is in early development. The adapters are experimental. Linux engine smoke tests cover map loading, selected transitions, boss actions, music, ending text, and the title screen. Full gameplay verification remains; Windows runtime testing is deferred.
 
 ## Requirements
 

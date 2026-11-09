@@ -92,7 +92,7 @@ export function archive1995(maps: OriginalMap[]): Uint8Array {
     if (!map.skyData) continue;
     if (map.tiledSky) {
       files[`patches/${map.sky}.lmp`] = map.skyData;
-      textures.push(`Texture ${map.sky}, 1024, 128`, '{', ...[0, 256, 512, 768].map(x => `  Patch ${map.sky}, ${x}, 0`), '}', '');
+      textures.push(`Texture ${map.sky}, 1024, 128`, '{', ...[0, 256, 512, 768].map(x => `  Patch "patches/${map.sky}.lmp", ${x}, 0`), '}', '');
     } else files[`textures/${map.sky}.lmp`] = map.skyData;
   }
   if (textures.length) files.TEXTURES = strToU8(fireWarpTextures + '\n' + textures.join('\n'));
