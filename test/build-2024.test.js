@@ -5,9 +5,20 @@ import { build2024Archive, mapinfo2024, musicResources2024 } from '../dist/build
 
 test('2024 adapter preserves route and resources without bundling maps', () => {
   const archive = unzipSync(build2024Archive(false));
-  assert.deepEqual(Object.keys(archive), ['MAPINFO', 'ZSCRIPT', 'LANGUAGE', 'maps/TITLEMAP.wad', 'patches/MLBGIMG.webp', 'graphics/M_TITLE.webp', 'TEXTURES', 'ANIMDEFS']);
+  assert.deepEqual(Object.keys(archive), [
+    'MAPINFO',
+    'ZSCRIPT',
+    'LANGUAGE',
+    'maps/TITLEMAP.wad',
+    'patches/MLBGIMG.webp',
+    'graphics/M_TITLE.webp',
+    'TEXTURES',
+    'ANIMDEFS',
+  ]);
   const text = strFromU8(archive.MAPINFO);
-  const sections = new Map([...text.matchAll(/map (MAP\d\d) [^]*?\n\}/g)].map(match => [match[1], match[0]]));
+  const sections = new Map(
+    [...text.matchAll(/map (MAP\d\d) [^]*?\n\}/g)].map((match) => [match[1], match[0]]),
+  );
   assert.equal(sections.size, 21);
   assert.match(sections.get('MAP04'), /The Fistula/);
   assert.match(sections.get('MAP18'), /next = "MAP19"\s+secretnext = "MAP21"/);
@@ -23,7 +34,12 @@ test('2024 adapter preserves route and resources without bundling maps', () => {
 });
 
 test('2024 pistol start does not reset on Bad Dream', () => {
-  const sections = new Map([...mapinfo2024(true).matchAll(/map (MAP\d\d) [^]*?\n\}/g)].map(match => [match[1], match[0]]));
+  const sections = new Map(
+    [...mapinfo2024(true).matchAll(/map (MAP\d\d) [^]*?\n\}/g)].map((match) => [
+      match[1],
+      match[0],
+    ]),
+  );
   for (const [name, section] of sections) {
     assert.equal(section.includes('resetinventory'), name !== 'MAP01' && name !== 'MAP21');
     assert.equal(section.includes('resethealth'), name !== 'MAP01' && name !== 'MAP21');

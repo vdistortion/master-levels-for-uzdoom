@@ -29,13 +29,35 @@ const originals: [string, number, string][] = [
   ['TEETH', 190531, '629e2a6eb1a0234ef0f152384a01130b3d8cd0e44f6c292463dbc2d6ae34d14e'],
   ['TTRAP', 286220, '90c7d8fc103e7b02b9602d5eb37fa439da1c5880355e4ee9fa53428ef30dcf45'],
   ['VESPERAS', 235353, '14a515f480455a4bd23c8204d9d236c9ba18c147e8c10a364300832ee804fea3'],
-  ['VIRGIL', 171232, 'c468a1684be8e8055fca52c0c0b3068893481dbaeff0d25f2d72a13b340dff09']
+  ['VIRGIL', 171232, 'c468a1684be8e8055fca52c0c0b3068893481dbaeff0d25f2d72a13b340dff09'],
 ];
 
 export const knownFiles: KnownFile[] = [
-  ...originals.map(([name, size, sha256]) => ({ name: `${name}.WAD`, edition: '1995' as const, size, sha256 })),
-  { name: 'MASTERLEVELS.WAD', edition: '2012', size: 3479715, sha256: '458bbd4e43425b1fdb882a51b23224abaf5e6713a7bfcdc19830bd4196f402f5' },
+  ...originals.map(([name, size, sha256]) => ({
+    name: `${name}.WAD`,
+    edition: '1995' as const,
+    size,
+    sha256,
+  })),
+  {
+    name: 'MASTERLEVELS.WAD',
+    edition: '2012',
+    size: 3479715,
+    sha256: '458bbd4e43425b1fdb882a51b23224abaf5e6713a7bfcdc19830bd4196f402f5',
+  },
   // Only the published SHA-1 is available for the August revision.
-  { name: 'masterlevels.wad', edition: '2024', size: 3894977, sha1: '47d5b10aee861791c9272ba4944e8eb1ea1e0819', revision: '2024-08-08' },
-  { name: 'masterlevels.wad', edition: '2024', size: 3920169, sha256: '3e42d71e316a3e3e53d47860509998d63a0758eafd846171c77f218b0043eaef', revision: '2024-10-03' }
+  {
+    name: 'masterlevels.wad',
+    edition: '2024',
+    size: 3894977,
+    sha1: '47d5b10aee861791c9272ba4944e8eb1ea1e0819',
+    revision: '2024-08-08',
+  },
+  {
+    name: 'masterlevels.wad',
+    edition: '2024',
+    size: 3920169,
+    sha256: '3e42d71e316a3e3e53d47860509998d63a0758eafd846171c77f218b0043eaef',
+    revision: '2024-10-03',
+  },
 ];

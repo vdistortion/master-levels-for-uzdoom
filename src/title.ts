@@ -103,10 +103,21 @@ Texture FIRWARP, 256, 256
 `;
 
 export function titleResources(): Record<string, Uint8Array> {
-  const map = writeWad({ type: 'PWAD', lumps: [
-    { name: 'TITLEMAP', data: Buffer.alloc(0) },
-    { name: 'TEXTMAP', data: Buffer.from(titleMap) },
-    { name: 'ENDMAP', data: Buffer.alloc(0) }
-  ] });
-  return { 'maps/TITLEMAP.wad': map, 'patches/MLBGIMG.webp': readFileSync(new URL('../assets/biomechanical-tile.webp', import.meta.url)), 'graphics/M_TITLE.webp': readFileSync(new URL('../assets/ml-title.webp', import.meta.url)), TEXTURES: Buffer.from(fireWarpTextures), ANIMDEFS: Buffer.from('WARP TEXTURE FIRWARP\n') };
+  const map = writeWad({
+    type: 'PWAD',
+    lumps: [
+      { name: 'TITLEMAP', data: Buffer.alloc(0) },
+      { name: 'TEXTMAP', data: Buffer.from(titleMap) },
+      { name: 'ENDMAP', data: Buffer.alloc(0) },
+    ],
+  });
+  return {
+    'maps/TITLEMAP.wad': map,
+    'patches/MLBGIMG.webp': readFileSync(
+      new URL('../assets/biomechanical-tile.webp', import.meta.url),
+    ),
+    'graphics/M_TITLE.webp': readFileSync(new URL('../assets/ml-title.webp', import.meta.url)),
+    TEXTURES: Buffer.from(fireWarpTextures),
+    ANIMDEFS: Buffer.from('WARP TEXTURE FIRWARP\n'),
+  };
 }

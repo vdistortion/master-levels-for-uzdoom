@@ -11,15 +11,27 @@ import { build2024Archive } from '../dist/build-2024.js';
 test('title packages the supplied background and keeps animation on separate layers', () => {
   const resources = titleResources();
   const lumps = readWad(Buffer.from(resources['maps/TITLEMAP.wad'])).lumps;
-  assert.deepEqual(lumps.map(lump => lump.name), ['TITLEMAP', 'TEXTMAP', 'ENDMAP']);
+  assert.deepEqual(
+    lumps.map((lump) => lump.name),
+    ['TITLEMAP', 'TEXTMAP', 'ENDMAP'],
+  );
   assert.match(lumps[1].data.toString(), /texturemiddle = "MLBACK"/);
   assert.match(lumps[1].data.toString(), /texturemiddle = "FIRWARP"/);
   const image = Buffer.from(resources['patches/MLBGIMG.webp']);
-  assert.deepEqual(image, readFileSync(new URL('../assets/biomechanical-tile.webp', import.meta.url)));
+  assert.deepEqual(
+    image,
+    readFileSync(new URL('../assets/biomechanical-tile.webp', import.meta.url)),
+  );
   assert.equal(image.subarray(0, 4).toString(), 'RIFF');
   assert.equal(image.subarray(8, 12).toString(), 'WEBP');
-  assert.deepEqual(Buffer.from(resources['graphics/M_TITLE.webp']), readFileSync(new URL('../assets/ml-title.webp', import.meta.url)));
-  assert.match(Buffer.from(resources.TEXTURES).toString(), /Graphic M_DOOM, 425, 139[^]*?XScale 3\.3[^]*?YScale 3\.3[^]*?Offset -10, -61[^]*?Patch M_TITLE, 0, 0 \{ Blend "#ff8000", 0\.5 \}/);
+  assert.deepEqual(
+    Buffer.from(resources['graphics/M_TITLE.webp']),
+    readFileSync(new URL('../assets/ml-title.webp', import.meta.url)),
+  );
+  assert.match(
+    Buffer.from(resources.TEXTURES).toString(),
+    /Graphic M_DOOM, 425, 139[^]*?XScale 3\.3[^]*?YScale 3\.3[^]*?Offset -10, -61[^]*?Patch M_TITLE, 0, 0 \{ Blend "#ff8000", 0\.5 \}/,
+  );
   assert.ok(Math.abs((139 + 25) / 2.7 - (139 + 61) / 3.3) < 0.15);
   assert.match(titleScript, /AddTextureYOffset/);
   assert.match(titleScript, /for \(int i = 0; i < 6; i\+\+\) level\.Sides\[i\]\.AddTextureYOffset/);
@@ -39,9 +51,26 @@ test('title packages the supplied background and keeps animation on separate lay
   assert.match(lumps[1].data.toString(), /vertex \{ x = 96; y = 64; \}/);
   assert.match(titleScript, /sector < 3/);
   assert.match(Buffer.from(resources.TEXTURES).toString(), /Texture FIRWARP, 256, 256/);
-  assert.match(Buffer.from(resources.TEXTURES).toString(), /Texture MLBACK, 1024, 512[^]*?XScale 4\.0[^]*?YScale 4\.0[^]*?Patch MLBGIMG/);
-  assert.equal((Buffer.from(resources.TEXTURES).toString().match(/Patch W65B_1/g) || []).length, 4);
-  assert.equal((Buffer.from(resources.TEXTURES).toString().match(/Translation "Desaturate", 31/g) || []).length, 4);
+  assert.match(
+    Buffer.from(resources.TEXTURES).toString(),
+    /Texture MLBACK, 1024, 512[^]*?XScale 4\.0[^]*?YScale 4\.0[^]*?Patch MLBGIMG/,
+  );
+  assert.equal(
+    (
+      Buffer.from(resources.TEXTURES)
+        .toString()
+        .match(/Patch W65B_1/g) || []
+    ).length,
+    4,
+  );
+  assert.equal(
+    (
+      Buffer.from(resources.TEXTURES)
+        .toString()
+        .match(/Translation "Desaturate", 31/g) || []
+    ).length,
+    4,
+  );
   assert.equal(Buffer.from(resources.ANIMDEFS).toString(), 'WARP TEXTURE FIRWARP\n');
   assert.equal(resources['textures/MLGLOW.png'], undefined);
 });

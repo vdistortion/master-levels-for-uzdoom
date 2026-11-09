@@ -12,19 +12,27 @@ export interface BuildReport {
 }
 
 /** File paths are arguments, not a shell command; consumers can spawn UZDoom safely. */
-export function buildReport(edition: Edition, output: string, sources: Match[], dataPath?: string): BuildReport {
+export function buildReport(
+  edition: Edition,
+  output: string,
+  sources: Match[],
+  dataPath?: string,
+): BuildReport {
   const loadFiles = edition === '1995' ? [dataPath!, output] : [sources[0].path, output];
-  const included = new Set(sources.map(source => source.file.name));
-  const missing = edition === '1995'
-    ? knownFiles.filter(file => file.edition === '1995' && !included.has(file.name)).map(file => file.name)
-    : [];
+  const included = new Set(sources.map((source) => source.file.name));
+  const missing =
+    edition === '1995'
+      ? knownFiles
+          .filter((file) => file.edition === '1995' && !included.has(file.name))
+          .map((file) => file.name)
+      : [];
   return {
     experimental: true,
     edition,
     output,
-    sources: sources.map(source => source.path),
+    sources: sources.map((source) => source.path),
     loadFiles,
     missing,
-    launchArguments: ['-iwad', 'DOOM2.WAD', '-file', ...loadFiles]
+    launchArguments: ['-iwad', 'DOOM2.WAD', '-file', ...loadFiles],
   };
 }

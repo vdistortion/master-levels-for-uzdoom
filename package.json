@@ -1,6 +1,12 @@
 {
   "name": "master-levels-for-uzdoom",
   "version": "0.1.0-alpha.1",
+  "files": [
+    "dist",
+    "assets",
+    "README.md",
+    "LICENSE"
+  ],
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -9,11 +15,17 @@
     "master-levels": "dist/cli.js"
   },
   "scripts": {
+    "format": "prettier . --write",
     "build": "tsc",
     "test": "npm run build && node --test"
   },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100
+  },
   "devDependencies": {
     "@types/node": "^26.6.6",
+    "prettier": "^3.9.10",
     "typescript": "^7.0.2"
   },
   "dependencies": {
